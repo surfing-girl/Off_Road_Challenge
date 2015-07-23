@@ -57,6 +57,7 @@ var QuizUI = {
 		};
 		choicesDiv.innerHTML += choicesHTML;
 		this.uphandlersDisplayChoices();
+		this.skipHandler();
 	},
 	uphandlersDisplayChoices: function() {
 		var choices = quiz.getCurrentQuestion().choices;
@@ -74,5 +75,12 @@ var QuizUI = {
 		var parent = document.getElementById(parentId);
 		var child = document.getElementById(childId);
 		parent.removeChild(child);
+	},
+	skipHandler: function() {
+		var skip = document.getElementById('skip');
+		var referenceToQuizUI = this;
+		skip.onclick = function() {
+			referenceToQuizUI.removeQuiz('quiz', 'quizCard');
+		};
 	}
 };
