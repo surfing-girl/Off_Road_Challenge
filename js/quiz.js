@@ -7,6 +7,7 @@ function Quiz (questions) {
 Quiz.prototype.guess = function(answer) {
 	if(this.getCurrentQuestion().isCorrectAnswer(answer)) {
 		this.badge++;
+		QuizUI.removeQuiz('quiz', 'quizCard');
 	};
 	this.currentQuestionIndex++;
 };
@@ -66,8 +67,12 @@ var QuizUI = {
 	guessHandler: function(id, guess) {
 		var button = document.getElementById(id);
 		button.onclick = function() {
-			console.log("hI " + id);
 			quiz.guess(guess);
 		};
+	},
+	removeQuiz: function(parentId, childId) {
+		var parent = document.getElementById(parentId);
+		var child = document.getElementById(childId);
+		parent.removeChild(child);
 	}
 };
