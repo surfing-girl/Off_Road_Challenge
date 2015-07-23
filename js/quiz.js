@@ -8,6 +8,7 @@ Quiz.prototype.guess = function(answer) {
 	if(this.getCurrentQuestion().isCorrectAnswer(answer)) {
 		this.badge++;
 		QuizUI.removeQuiz('quiz', 'quizCard');
+		QuizUI.addNewNode();
 	} else {
 		var looser = '<h1>GAME OVER</h1>';
 			looser += '<h2> You ' + quiz.lostReason;
@@ -80,5 +81,12 @@ var QuizUI = {
 		skip.onclick = function() {
 			referenceToQuizUI.removeQuiz('quiz', 'quizCard');
 		};
+	},
+	addNewNode: function() {
+		var htmlElement = document.createElement('p');
+		var elementText = document.createTextNode(quiz.badge);
+		htmlElement.appendChild(elementText);
+		document.getElementById('badges').appendChild(htmlElement);
+
 	}
 };
