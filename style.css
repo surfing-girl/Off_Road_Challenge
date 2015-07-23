@@ -46,7 +46,7 @@ svg {
 	transition: background-color 1s;
 }
 
-.btn-lg:hover {
+.btn-lg:hover, .btn-lg:focus {
 	background-color: rgba(82, 186, 179, 0.7);
 	color: rgb(255, 255, 255);
 }

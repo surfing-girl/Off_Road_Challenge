@@ -32,33 +32,42 @@ Question.prototype.isCorrectAnswer = function(choice) {
 };
 
 var QuizUI = {
-	displayQuiz: function() {
+	updateQuiz: function() {
 		if(!quiz.getCurrentQuestion().isCorrectAnswer(quiz.getCurrentQuestion().answer)) {
 			var looser = '<h1>GAME OVER</h1>';
 			looser += '<h2> You ' + quiz.lostReason;
-			printHTML('main', looser);
+			document.getElementById('main').innerHTML = looser;
 		} else {
-			var quizHTML = '<div id="quizCard" class="col-md-12">';
-			quizHTML += '<h1 id="quizTitle">' + quiz.getCurrentQuestion().title + '</h1>';
-			quizHTML += '<h2 id="question">' + quiz.getCurrentQuestion().text + '</h2>';
-			quizHTML += this.displayChoices();
-			quizHTML += '<div id="skipButton" class="col-md-12">';
-			quizHTML += '<button id="skip" class="btn btn-lg">Skip question</button>';
-			quizHTML += '</div>';
-		return quizHTML;             
+			document.getElementById('quizTitle').innerHTML = quiz.getCurrentQuestion().title;
+			document.getElementById('question').innerHTML = quiz.getCurrentQuestion().text;
+			this.addChoices();        
 		}
 		 
 	},
-	displayChoices: function() {
+	addChoices: function() {
+		var choicesDiv = document.getElementById("choices");
 		var choices = quiz.getCurrentQuestion().choices;
 		var choicesHTML = '';
-		for(var i = 0; i < choices.length; i++) {
+		for(var i = 0; i < choices.length; i++) {			
 			choicesHTML += '<p id="choice' + i + '">';
 			choicesHTML += choices[i];
 			choicesHTML += '</p>';
 			choicesHTML += '<button id="guess' + i + '" class="btn btn-lg">Select Answer</button>';
-			/*this.guessHandler('guess' + i, choices[i]);*/	
 		};
-		return choicesHTML;
+		choicesDiv.innerHTML += choicesHTML;
+		this.uphandlersDisplayChoices();
+	},
+	uphandlersDisplayChoices: function() {
+		var choices = quiz.getCurrentQuestion().choices;
+		for(var i = 0; i < choices.length; i++) {
+			this.guessHandler('guess' + i, choices[i]);	
+		};
+	},
+	guessHandler: function(id, guess) {
+		var button = document.getElementById(id);
+		button.onclick = function() {
+			console.log("hI " + id);
+			quiz.guess(guess);
+		};
 	}
 };

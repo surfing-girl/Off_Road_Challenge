@@ -20,4 +20,4 @@ dice_button.onclick = function() {
 	printHTML('dice', result); 
 };
 
-printHTML('quiz', QuizUI.displayQuiz());
+QuizUI.updateQuiz();
