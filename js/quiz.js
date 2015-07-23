@@ -8,6 +8,10 @@ Quiz.prototype.guess = function(answer) {
 	if(this.getCurrentQuestion().isCorrectAnswer(answer)) {
 		this.badge++;
 		QuizUI.removeQuiz('quiz', 'quizCard');
+	} else {
+		var looser = '<h1>GAME OVER</h1>';
+			looser += '<h2> You ' + quiz.lostReason;
+			document.getElementById('main').innerHTML = looser;
 	};
 	this.currentQuestionIndex++;
 };
@@ -34,15 +38,9 @@ Question.prototype.isCorrectAnswer = function(choice) {
 
 var QuizUI = {
 	updateQuiz: function() {
-		if(!quiz.getCurrentQuestion().isCorrectAnswer(quiz.getCurrentQuestion().answer)) {
-			var looser = '<h1>GAME OVER</h1>';
-			looser += '<h2> You ' + quiz.lostReason;
-			document.getElementById('main').innerHTML = looser;
-		} else {
-			document.getElementById('quizTitle').innerHTML = quiz.getCurrentQuestion().title;
-			document.getElementById('question').innerHTML = quiz.getCurrentQuestion().text;
-			this.addChoices();        
-		}
+		document.getElementById('quizTitle').innerHTML = quiz.getCurrentQuestion().title;
+		document.getElementById('question').innerHTML = quiz.getCurrentQuestion().text;
+		this.addChoices();        
 		 
 	},
 	addChoices: function() {
